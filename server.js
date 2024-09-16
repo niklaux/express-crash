@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config();
 
 const express = require("express");
 const path = require("path");
@@ -14,8 +14,16 @@ let posts = [
   { id: 2, title: "Fantasia" },
 ];
 
+// Get all posts
 app.get("/api/posts", (req, res) => {
   res.json(posts);
+});
+
+// Get a single post
+app.get("/api/posts/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const post = posts.filter((post) => post.id === id);
+  res.json(post);
 });
 
 app.listen(port, () => {
