@@ -7,6 +7,10 @@ const port = process.env.PORT || 8000;
 
 const app = express();
 
+// Body Parser Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 app.use("/api/posts", posts);
 
 // to use: http://localhost:8000/about.html
