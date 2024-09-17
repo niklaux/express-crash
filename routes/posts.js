@@ -30,9 +30,33 @@ router.get("/:id", (req, res) => {
 
 // Create new post
 router.post("/", (req, res) => {
-  console.log(req.body);
+  const newPost = {
+    id: posts.length + 1,
+    title: req.body.title,
+  };
+
+  if (!newPost.title) {
+    return res.status(400).json({ msg: "Please input a title" });
+  }
+
+  posts.push(newPost);
 
   res.status(201).json(posts);
+});
+
+// Update a post
+router.put("/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+
+  let post = posts.find((post) => post.id === id);
+
+  if (!post) {
+    return res.status(404).json({ msg: `Post with id ${id} is not found` });
+  }
+
+  post.title = req.body.title;
+
+  res.status(200).json(posts);
 });
 
 module.exports = router;
