@@ -1,10 +1,19 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
 
 let posts = [
   { id: 1, title: "Titanic" },
   { id: 2, title: "Fantasia" },
 ];
+
+// Middleware, 3 required params
+const logger = (req, res, next) => {
+  console.log(
+    `${req.method} ${req.protocol}://${req.get("host")}${req.originalUrl}`
+  );
+
+  next();
+};
 
 // Get all posts
 router.get("/", (req, res) => {
@@ -74,4 +83,4 @@ router.delete("/:id", (req, res) => {
   res.status(200).json(posts);
 });
 
-module.exports = router;
+export default router
