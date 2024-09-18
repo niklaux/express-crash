@@ -6,6 +6,7 @@ import path from "path";
 import posts from "./routes/posts.js";
 import logger from "./middleware/logger.js";
 import errorHandler from "./middleware/error.js";
+import notFound from "./middleware/notFound.js";
 const port = process.env.PORT || 8000;
 
 const app = express();
@@ -19,6 +20,8 @@ app.use(logger);
 
 app.use("/api/posts", posts);
 
+// Catch all error middleware
+app.use(notFound);
 // Error handler middleware
 app.use(errorHandler);
 
